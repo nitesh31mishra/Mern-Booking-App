@@ -1,0 +1,23 @@
+npm init playwright@latest
+Add extension - playwright in the VS codebase
+
+
+E2E Testing 
+1. test Database setup 
+    - on mongodb
+    - some local changes - e2e env file change
+
+2. Insert dummy data as used in the code
+
+password = password123
+{
+  "_id": {
+    "$oid": "6554f2ecd4f07417501dcbf1"
+  },
+  "email": "1@1.com",
+  "password": "$2a$08$034zqQ5mL/zho/IJLUtbt.TUtBgRaaBj.yg85T40EdYhfGOQelaQa",
+  "firstName": "e2e_test_firstName",
+  "lastName": "e2e_test_lastName",
+  "__v": 0
+}
+
