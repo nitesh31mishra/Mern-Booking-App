@@ -3,7 +3,7 @@ export const hotelTypes = [
     "SubLease"
 ]
 
-export const hotelFacilties = [
+export const hotelFacilities = [
     "Restaurant",
     "Nearby Transportation",
     "Free WiFi",
