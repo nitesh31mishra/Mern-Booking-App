@@ -1,8 +1,20 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { HotelSearchResponse, HotelType } from '../../backend/src/shared/types'
+import { HotelSearchResponse, HotelType, UserType } from '../../backend/src/shared/types'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL  // as we are use VITE so for env variable we have to use this
+
+
+export const fetchCurrentUser = async (): Promise<UserType> => {
+    const response = await fetch( `${API_BASE_URL}/api/users/me`, {
+        credentials:"include"
+    })
+
+    if (!response.ok){ /// as responseBody.ok is undefined so...
+        throw new Error("Error Fetching user");
+    }
+    return response.json();
+};
 
 export const register = async (formData: RegisterFormData) => {
     const response = await fetch(`${API_BASE_URL}/api/users/register`,{
@@ -171,4 +183,19 @@ export const searchHotels = async(searchParams: SearchParams): Promise<HotelSear
 
     return response.json();
 
-};
+ };
+
+
+export const fetchHotelById = async(hotelId: string): Promise<HotelType> => {
+
+    const response = await fetch(
+        `${API_BASE_URL}/api/hotels/${hotelId}`
+    );
+
+    if (!response.ok) {
+        throw new Error("Error fetching Hotels");
+    }
+
+    return response.json();
+
+}

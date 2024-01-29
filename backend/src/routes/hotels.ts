@@ -2,6 +2,7 @@ import express, {Request, Response} from "express";
 import Hotel from "../models/hotel";
 import { HotelSearchResponse } from "../shared/types";
 import e from "express";
+import { param, validationResult } from "express-validator";
 
 // routes for searching hotels
 const router = express.Router();
@@ -48,6 +49,26 @@ router.get("/search", async(req: Request, res: Response)=>{
         console.log("Error Creating Hotel:", error);
         res.status(500).send({message: "Something went wrong."});
     }
+
+});
+
+
+// api/hotels/9876567890987
+router.get("/:id", [param("id").notEmpty().withMessage("Hotel ID is required")],async(req:Request, res:Response) => {
+  
+  const errors = validationResult(req);
+  if (!errors.isEmpty()){
+      return res.status(400).json({message: errors.array()[0].msg});
+  }
+
+  const id = req.params.id.toString();
+  try{
+    const hotel = await Hotel.findById(id);
+    res.json(hotel);
+  }
+  catch(error){
+        res.status(500).json({message: "Error Fetching hotels."})
+  }
 
 });
 
