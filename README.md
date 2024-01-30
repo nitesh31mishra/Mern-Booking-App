@@ -1,4 +1,6 @@
-# Mern Booking App
+# FindStay
+
+An Hotel Booking Application built using MERN(MongoDB, Express, React, Node) stack technology.
 
 ## Technology
 
@@ -11,7 +13,7 @@
 - **Cloudinary** - Cloud-based image and video storage service.
 - **Stripe** - Payment Gateway Platform to secure online payments and is commonly used to handle transactions in web applications.
 
-## Key Features
+## Application Key Features
 
 1. **User Authentication**  
    Implemented secure login and registration using **HTTP cookies** and **JWT** for a seamless user experience.
@@ -48,3 +50,16 @@
    - Install dependencies: `npm install`.
    - Start the frontend application: `npm run dev`.
    - The application should now be running on `http://localhost:5173` but verify this in your command line terminal
+
+## Stripe - Payment Gateway Workflow
+
+Below is the Payment Gateway (Stripe) Integration workflow with both client and server side.
+[Stripe Integration WorkFlow](Files/stripev1.png)
+
+## Development practices
+
+1. **End-to-End testing**
+   Performed end-to-end testing on the multiple features of application using playwright extension in VSCode.
+
+2. **Code Quality**
+   Tried to maintain good code quality and industry best practices.
