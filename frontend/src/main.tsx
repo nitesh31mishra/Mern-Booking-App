@@ -25,4 +25,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   </React.StrictMode>
 );
 
-document.title = "FindLease.com";
+document.title = "FindStay.com";

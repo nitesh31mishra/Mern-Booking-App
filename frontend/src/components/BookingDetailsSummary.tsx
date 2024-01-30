@@ -36,7 +36,7 @@ const BookingDetailsSummary = ({
       </div>
       <div className="border-t border-b py-2">
         Total length of stay
-        <div className="font-bold">{numberOfNights} nights</div>
+        <div className="font-bold">{numberOfNights} night</div>
       </div>
 
       <div>

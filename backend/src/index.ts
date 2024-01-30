@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import {v2 as cloudinary} from 'cloudinary';
 import myHotelRoutes from './routes/my-hotels';
 import hotelRoutes from './routes/hotels';
+import bookingRoutes from './routes/my-bookings';
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -33,6 +34,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes); // add edit hotel
 app.use("/api/hotels", hotelRoutes ); // search hotels
+app.use("/api/my-bookings", bookingRoutes); // my-bookings 
 
 
 app.listen(7000, () => {

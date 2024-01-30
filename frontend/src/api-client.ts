@@ -1,6 +1,7 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import { HotelSearchResponse, HotelType, UserType } from '../../backend/src/shared/types'
+import { HotelSearchResponse, HotelType, UserType,PaymentIntentResponse } from '../../backend/src/shared/types'
+import { BookingFormData } from "./forms/BookingForm/BookingForm";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL  // as we are use VITE so for env variable we have to use this
 
@@ -186,6 +187,21 @@ export const searchHotels = async(searchParams: SearchParams): Promise<HotelSear
  };
 
 
+ //home screen hotel list
+export const fetchHotels = async(): Promise<HotelType[]> => {
+
+    const response = await fetch(
+        `${API_BASE_URL}/api/hotels`
+    );
+
+    if (!response.ok) {
+        throw new Error("Error fetching Hotels");
+    }
+
+    return response.json();
+
+};
+
 export const fetchHotelById = async(hotelId: string): Promise<HotelType> => {
 
     const response = await fetch(
@@ -198,4 +214,65 @@ export const fetchHotelById = async(hotelId: string): Promise<HotelType> => {
 
     return response.json();
 
+};
+
+// calling to create paument intent
+export const createPaymentIntent = async (
+  hotelId: string,
+  numberOfNights: string
+): Promise<PaymentIntentResponse> => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/${hotelId}/bookings/payment-intent`,
+    {
+      credentials: "include",
+      method: "POST",
+      body: JSON.stringify({ numberOfNights }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching payment intent");
+  }
+
+  return response.json();
+};
+
+
+
+// calling the hotel booking once payment is done
+export const createRoomBooking = async (formData: BookingFormData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/${formData.hotelId}/bookings`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(formData),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error booking room");
+  }
+};
+
+
+// calling my-booking routes to get bookings made my user
+export const fetchMyBookings = async (): Promise<HotelType[]> =>{
+    const response = await fetch(
+        `${API_BASE_URL}/api/my-bookings`,
+        {
+            credentials: "include",
+        });
+
+    if (!response.ok) {
+    throw new Error("Unable to fetch bookings");
+    };
+
+    return response.json();
 }

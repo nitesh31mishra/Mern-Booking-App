@@ -13,7 +13,7 @@ const SearchBar = () => {
   // this are local state and not global stater- as we dont want to re render everytime global change
   const [destination, setDestination] = useState<string>(search.destination);
   const [checkIn, setCheckIn] = useState<Date>(search.checkIn);
-  const [checkOut, setCheckOut] = useState<Date>(search.checkIn);
+  const [checkOut, setCheckOut] = useState<Date>(search.checkOut);
   const [adultCount, setAdultCount] = useState<number>(search.adultCount);
   const [childCount, setChildCount] = useState<number>(search.childCount);
 
@@ -24,6 +24,7 @@ const SearchBar = () => {
       checkIn,
       checkOut,
       adultCount,
+
       childCount
     );
     navigate("/search");
@@ -31,7 +32,19 @@ const SearchBar = () => {
 
   const minDate = new Date();
   const maxDate = new Date();
+  const minCheckOutDate = checkIn
+    ? new Date(checkIn.getTime() + 86400000)
+    : minDate; // Adding 1 day in milliseconds
   maxDate.setFullYear(maxDate.getFullYear() + 1); // 1year from today
+
+  const handleCheckInChange = (date: Date) => {
+    setCheckIn(date);
+
+    // Calculate the next day and set it as the minimum for check-out
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1);
+    setCheckOut(nextDay);
+  };
 
   return (
     <form
@@ -75,7 +88,8 @@ const SearchBar = () => {
       <div>
         <DatePicker
           selected={checkIn}
-          onChange={(date) => setCheckIn(date as Date)}
+          // onChange={(date) => setCheckIn(date as Date)}
+          onChange={handleCheckInChange}
           selectsStart
           startDate={checkIn}
           endDate={checkOut}
@@ -93,7 +107,7 @@ const SearchBar = () => {
           selectsStart
           startDate={checkIn}
           endDate={checkOut}
-          minDate={checkIn}
+          minDate={minCheckOutDate}
           maxDate={maxDate}
           placeholderText="Check-Out Date"
           className="min-w-full bg-white p-2 focus:outline-none"

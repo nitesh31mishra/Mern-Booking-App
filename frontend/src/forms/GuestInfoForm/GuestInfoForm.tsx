@@ -70,6 +70,15 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
     navigate(`/hotel/${hotelId}/booking`);
   };
 
+  const handleCheckInChange = (date: Date) => {
+    setValue("checkIn", date as Date);
+
+    // Calculate the next day and set it as the minimum for check-out
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 1);
+    setValue("checkOut", nextDay);
+  };
+
   return (
     <div className="flex flex-col p-4 bg-blue-200 gap-4">
       <h3 className="text-md font-bold">Price: ${pricePerNight}</h3>
@@ -83,7 +92,8 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
             <DatePicker
               required
               selected={checkIn}
-              onChange={(date) => setValue("checkIn", date as Date)}
+              // onChange={(date) => setValue("checkIn", date as Date)}
+              onChange={handleCheckInChange}
               selectsStart
               startDate={checkIn}
               endDate={checkOut}
@@ -102,7 +112,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
               selectsStart
               startDate={checkIn}
               endDate={checkOut}
-              minDate={checkIn}
+              minDate={checkOut}
               maxDate={maxDate}
               placeholderText="Check-Out Date"
               className="min-w-full bg-white p-2 focus:outline-none"

@@ -1,6 +1,19 @@
 export const hotelTypes = [
-    "Lease", 
-    "SubLease"
+  "Budget",
+  "Boutique",
+  "Luxury",
+  "Ski Resort",
+  "Business",
+  "Family",
+  "Romantic",
+  "Hiking Resort",
+  "Cabin",
+  "Lease",
+  "SubLease",
+  "Motel",
+  "All Inclusive",
+  "Pet Friendly",
+  "Self Catering",
 ]
 
 export const hotelFacilities = [
