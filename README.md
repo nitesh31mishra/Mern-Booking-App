@@ -1,6 +1,6 @@
 # FindStay
 
-An Hotel Booking Application built using MERN(MongoDB, Express, React, Node) stack technology.
+Hotel Booking Application built using MERN (MongoDB, Express, React, Node) stack technologies.
 
 ## Technology
 
